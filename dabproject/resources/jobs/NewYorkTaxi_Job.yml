@@ -1,0 +1,19 @@
+resources:
+  jobs:
+    NewYorkTaxi_Job:
+      name: NewYorkTaxi_Job
+      tasks:
+        - task_key: nyctaxi_dlt_pipeline
+          pipeline_task:
+            pipeline_id: 46a0ba78-0d83-48b4-ab51-1714e68c68a3
+            full_refresh: true
+        - task_key: nyc_data_visualisation
+          depends_on:
+            - task_key: nyctaxi_dlt_pipeline
+          dashboard_task:
+            subscription: {}
+            warehouse_id: 50cc52de8a69b253
+            dashboard_id: 01f0b1cb4fb21ecf863e9aeeac6d00a5
+      queue:
+        enabled: true
+      performance_target: PERFORMANCE_OPTIMIZED

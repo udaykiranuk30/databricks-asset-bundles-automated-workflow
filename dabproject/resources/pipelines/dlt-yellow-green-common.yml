@@ -1,0 +1,17 @@
+resources:
+  pipelines:
+    pipeline_dlt_yellow_green_common:
+      name: dlt-yellow-green-common
+      configuration:
+        source: /Volumes/${var.catalog}/default/nyctaxi_trips_data
+      libraries:
+        - glob:
+            include: ../../src/pipelines/dlt-yellow-green-common/transformations/**
+      schema: ${var.schema}
+      continuous: false
+      development: false
+      photon: true
+      channel: CURRENT
+      catalog: ${var.catalog}
+      serverless: true
+      root_path: ../../src/pipelines/dlt-yellow-green-common
