@@ -18,5 +18,7 @@ The entire process—data pipelines, job orchestration, dashboard configuration,
 ### Bundle deployed at  Production mode:
 <img width="1615" height="96" alt="image" src="https://github.com/user-attachments/assets/4c54052d-74db-49ce-88c0-dc3bf0aeb940" />
 
+### Note
+The production file is also uploaded check out!!
 Dashboard is also uploaded in repository, Please check out!! :)
 
