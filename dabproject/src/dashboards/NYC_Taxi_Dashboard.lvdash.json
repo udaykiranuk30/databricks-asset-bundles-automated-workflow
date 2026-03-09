@@ -61,6 +61,17 @@
         "group by borough\n",
         "order by TotalVisits desc"
       ]
+    },
+    {
+      "name": "9c8dca5e",
+      "displayName": "Untitled dataset",
+      "queryLines": [
+        "USE CATALOG `dab_car_sales_dev`;\n",
+        "USE SCHEMA `default`;\n",
+        "\n",
+        "select country,region,round(Total_Revenue,2) as Revenue from \n",
+        "car_sales_revenue_by_country_region_gold"
+      ]
     }
   ],
   "pages": [
@@ -73,17 +84,17 @@
             "name": "d3135834",
             "queries": [
               {
-                "name": "2ecad30d1f494c168225d205249ba943",
+                "name": "main_query",
                 "query": {
                   "datasetName": "285b47a9",
                   "fields": [
                     {
-                      "name": "VendorID",
-                      "expression": "`VendorID`"
+                      "name": "sum(Total_Amount_Earned)",
+                      "expression": "SUM(`Total_Amount_Earned`)"
                     },
                     {
-                      "name": "column_adb55f5a2663",
-                      "expression": "SUM(`Total_Amount_Earned`)"
+                      "name": "VendorID",
+                      "expression": "`VendorID`"
                     }
                   ],
                   "disaggregated": false
@@ -91,19 +102,65 @@
               }
             ],
             "spec": {
-              "version": 0,
-              "viz_spec": {
-                "display_name": "RevenuePerVendor",
-                "viz_type": "CHART",
-                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"VendorID\",\"id\":\"column_adb55f5a2661\"},\"y\":[{\"column\":\"Total_Amount_Earned\",\"id\":\"column_adb55f5a2663\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_adb55f5a2658\":{\"type\":\"pie\",\"yAxis\":0},\"column_adb55f5a2663\":{\"name\":\"RevenuePerVendor\",\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{\"1\":{\"color\":\"#8BCAE7\"},\"2\":{\"color\":\"#BF7080\"},\"4\":{\"color\":\"#FF3621\"}},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
-                "query_name": "2ecad30d1f494c168225d205249ba943"
+              "version": 3,
+              "annotations": [
+                {
+                  "type": "horizontal-line",
+                  "encodings": {
+                    "y": {
+                      "dataValue": "400000",
+                      "dataType": "DOUBLE"
+                    },
+                    "color": {
+                      "value": {
+                        "themeColorType": "selectionColor"
+                      }
+                    }
+                  }
+                }
+              ],
+              "frame": {
+                "title": "Revenue Generated Per Vendor",
+                "showTitle": true,
+                "headerAlignment": "center",
+                "showDescription": true,
+                "description": "Which Vendor has earned the most?"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "VendorID",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(Total_Amount_Earned)",
+                  "axis": {
+                    "title": "Revenue"
+                  },
+                  "displayName": "Revenue vs Vendor",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "sum(Total_Amount_Earned)",
+                  "displayName": "Revenue Range",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
               }
             }
           },
           "position": {
             "x": 0,
             "y": 2,
-            "width": 3,
+            "width": 6,
             "height": 6
           }
         },
@@ -119,7 +176,7 @@
           "position": {
             "x": 0,
             "y": 0,
-            "width": 6,
+            "width": 12,
             "height": 2
           }
         },
@@ -128,17 +185,17 @@
             "name": "a732fd93",
             "queries": [
               {
-                "name": "60f8de15e2324c3da9f66f3f1f452db5",
+                "name": "main_query",
                 "query": {
                   "datasetName": "8ed33e83",
                   "fields": [
                     {
-                      "name": "taxitype",
-                      "expression": "`taxitype`"
+                      "name": "sum(Revenue_Generated)",
+                      "expression": "SUM(`Revenue_Generated`)"
                     },
                     {
-                      "name": "column_adb55f5a2683",
-                      "expression": "SUM(`Revenue_Generated`)"
+                      "name": "taxitype",
+                      "expression": "`taxitype`"
                     }
                   ],
                   "disaggregated": false
@@ -146,19 +203,60 @@
               }
             ],
             "spec": {
-              "version": 0,
-              "viz_spec": {
-                "display_name": "Yellow vs Green",
-                "viz_type": "CHART",
-                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"taxitype\",\"id\":\"column_adb55f5a2682\"},\"y\":[{\"column\":\"Revenue_Generated\",\"id\":\"column_adb55f5a2683\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"pie\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_adb55f5a2683\":{\"name\":\"Revenue_Generated\",\"type\":\"pie\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":true,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{\"Green\":{\"color\":\"#00A972\"}},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"-\"}}",
-                "query_name": "60f8de15e2324c3da9f66f3f1f452db5"
+              "version": 3,
+              "mark": {
+                "layout": "stack"
+              },
+              "frame": {
+                "title": "TaxiType",
+                "showTitle": true,
+                "headerAlignment": "center",
+                "showDescription": true,
+                "description": "Which Taxi Type has generated the most Revenue in %"
+              },
+              "widgetType": "pie",
+              "encodings": {
+                "angle": {
+                  "fieldName": "sum(Revenue_Generated)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "axis": {
+                    "title": "Revenue"
+                  },
+                  "displayName": "Revenue_Generated"
+                },
+                "color": {
+                  "fieldName": "taxitype",
+                  "legend": {
+                    "title": "TaxiType"
+                  },
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "Green",
+                        "color": {
+                          "themeColorType": "selectionColor"
+                        }
+                      },
+                      {
+                        "value": "Yellow",
+                        "color": "#322590"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
               }
             }
           },
           "position": {
-            "x": 3,
+            "x": 6,
             "y": 2,
-            "width": 3,
+            "width": 6,
             "height": 6
           }
         },
@@ -167,7 +265,7 @@
             "name": "b789582c",
             "queries": [
               {
-                "name": "66e81560051b4bd6855d07becf03e093",
+                "name": "main_query",
                 "query": {
                   "datasetName": "2cebfcd2",
                   "fields": [
@@ -176,7 +274,7 @@
                       "expression": "`TheDate`"
                     },
                     {
-                      "name": "column_adb55f5a2703",
+                      "name": "sum(RevenueGeneratedPerDay)",
                       "expression": "SUM(`RevenueGeneratedPerDay`)"
                     }
                   ],
@@ -185,19 +283,55 @@
               }
             ],
             "spec": {
-              "version": 0,
-              "viz_spec": {
-                "display_name": "RevenuePerDate",
-                "viz_type": "CHART",
-                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"hideXAxis\":false,\"yAxis\":[{\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"x\":{\"column\":\"TheDate\",\"id\":\"column_adb55f5a2712\"},\"y\":[{\"column\":\"RevenueGeneratedPerDay\",\"id\":\"column_adb55f5a2703\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":false,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"line\",\"version\":2,\"reverseX\":false,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_adb55f5a2703\":{\"name\":\"RevenueGeneratedPerDay\",\"type\":\"line\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"type\":\"category\"}}",
-                "query_name": "66e81560051b4bd6855d07becf03e093"
+              "version": 3,
+              "frame": {
+                "title": "Revenue vs Date",
+                "showTitle": true,
+                "headerAlignment": "center",
+                "showDescription": true,
+                "description": "Revenue Generated per Day"
+              },
+              "annotations": [
+                {
+                  "type": "horizontal-line",
+                  "encodings": {
+                    "y": {
+                      "dataValue": "240000",
+                      "dataType": "DOUBLE"
+                    }
+                  }
+                }
+              ],
+              "mark": {
+                "layout": "layer",
+                "size": -0.5
+              },
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "TheDate",
+                  "displayName": "Date",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(RevenueGeneratedPerDay)",
+                  "displayName": "Revenue",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
               }
             }
           },
           "position": {
             "x": 0,
             "y": 8,
-            "width": 3,
+            "width": 6,
             "height": 6
           }
         },
@@ -211,23 +345,40 @@
                   "datasetName": "3fb1a591",
                   "fields": [
                     {
-                      "name": "TotalRevenue",
-                      "expression": "`TotalRevenue`"
+                      "name": "sum(TotalRevenue)",
+                      "expression": "SUM(`TotalRevenue`)"
                     }
                   ],
-                  "disaggregated": true
+                  "disaggregated": false
                 }
               }
             ],
             "spec": {
               "version": 2,
+              "frame": {
+                "headerAlignment": "center",
+                "showDescription": true,
+                "description": "Total Revenue Generated by the Taxi Services in NewYork in the year 2019.",
+                "title": "Total Revenue",
+                "showTitle": true
+              },
               "widgetType": "counter",
               "encodings": {
                 "value": {
-                  "fieldName": "TotalRevenue",
+                  "fieldName": "sum(TotalRevenue)",
+                  "style": {
+                    "italic": true,
+                    "rules": [
+                      {
+                        "condition": {
+                          "operator": ">="
+                        },
+                        "color": "#00A972"
+                      }
+                    ]
+                  },
                   "format": {
-                    "type": "number-currency",
-                    "currencyCode": "USD",
+                    "type": "number-plain",
                     "abbreviation": "compact",
                     "decimalPlaces": {
                       "type": "max",
@@ -235,17 +386,13 @@
                     }
                   }
                 }
-              },
-              "frame": {
-                "title": "TotalRevenue",
-                "showTitle": true
               }
             }
           },
           "position": {
-            "x": 3,
+            "x": 6,
             "y": 8,
-            "width": 3,
+            "width": 6,
             "height": 6
           }
         },
@@ -254,27 +401,89 @@
             "name": "ccb070f5",
             "queries": [
               {
-                "name": "3d09184baaf34a78a107980f628b7fa4",
+                "name": "main_query",
                 "query": {
                   "datasetName": "1ec98819",
+                  "fields": [
+                    {
+                      "name": "PaymentTypeID",
+                      "expression": "`PaymentTypeID`"
+                    },
+                    {
+                      "name": "PaymentType",
+                      "expression": "`PaymentType`"
+                    },
+                    {
+                      "name": "PaymentTypeByPassenger",
+                      "expression": "`PaymentTypeByPassenger`"
+                    }
+                  ],
                   "disaggregated": true
                 }
               }
             ],
             "spec": {
-              "version": 0,
-              "viz_spec": {
-                "display_name": "MostUsedPaymentMethod",
-                "viz_type": "TABLE",
-                "serialized_options": "{\"paginationSize\":\"default\",\"version\":2,\"withRowNumber\":false,\"columns\":[{\"imageUrlTemplate\":\"{{ @ }}\",\"useMonospaceFont\":false,\"name\":\"PaymentTypeID\",\"linkTextTemplate\":\"{{ @ }}\",\"visible\":true,\"allowHTML\":false,\"alignContent\":\"right\",\"linkTitleTemplate\":\"{{ @ }}\",\"allowSearch\":false,\"imageWidth\":\"\",\"booleanValues\":[\"false\",\"true\"],\"linkOpenInNewTab\":true,\"imageTitleTemplate\":\"{{ @ }}\",\"order\":100000,\"title\":\"PaymentTypeID\",\"type\":\"integer\",\"highlightLinks\":false,\"linkUrlTemplate\":\"{{ @ }}\",\"preserveWhitespace\":false,\"numberFormat\":\"0\",\"imageHeight\":\"\",\"displayAs\":\"number\"},{\"imageUrlTemplate\":\"{{ @ }}\",\"useMonospaceFont\":false,\"name\":\"PaymentType\",\"linkTextTemplate\":\"{{ @ }}\",\"visible\":true,\"allowHTML\":false,\"alignContent\":\"left\",\"linkTitleTemplate\":\"{{ @ }}\",\"allowSearch\":false,\"imageWidth\":\"\",\"booleanValues\":[\"false\",\"true\"],\"linkOpenInNewTab\":true,\"imageTitleTemplate\":\"{{ @ }}\",\"order\":100001,\"title\":\"PaymentType\",\"type\":\"string\",\"highlightLinks\":false,\"linkUrlTemplate\":\"{{ @ }}\",\"preserveWhitespace\":false,\"imageHeight\":\"\",\"displayAs\":\"string\"},{\"imageUrlTemplate\":\"{{ @ }}\",\"useMonospaceFont\":false,\"name\":\"PaymentTypeByPassenger\",\"linkTextTemplate\":\"{{ @ }}\",\"visible\":true,\"allowHTML\":false,\"alignContent\":\"right\",\"linkTitleTemplate\":\"{{ @ }}\",\"allowSearch\":false,\"imageWidth\":\"\",\"booleanValues\":[\"false\",\"true\"],\"linkOpenInNewTab\":true,\"imageTitleTemplate\":\"{{ @ }}\",\"order\":100002,\"title\":\"PaymentTypeByPassenger\",\"type\":\"integer\",\"highlightLinks\":false,\"linkUrlTemplate\":\"{{ @ }}\",\"preserveWhitespace\":false,\"numberFormat\":\"0\",\"imageHeight\":\"\",\"displayAs\":\"number\"}],\"condensed\":true,\"itemsPerPage\":25}",
-                "query_name": "3d09184baaf34a78a107980f628b7fa4"
+              "version": 2,
+              "rowsPerPage": 25,
+              "displayRowNumbers": false,
+              "frame": {
+                "title": "Payment Method",
+                "showTitle": true,
+                "headerAlignment": "center",
+                "showDescription": true,
+                "description": "How customers are paying their trips?"
+              },
+              "widgetType": "table",
+              "encodings": {
+                "columns": [
+                  {
+                    "fieldName": "PaymentTypeID",
+                    "useForSearch": false,
+                    "format": {
+                      "type": "numeral.js",
+                      "format": "0"
+                    },
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "PaymentType",
+                    "useForSearch": false,
+                    "displayName": "Type",
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  },
+                  {
+                    "fieldName": "PaymentTypeByPassenger",
+                    "useForSearch": false,
+                    "format": {
+                      "type": "numeral.js",
+                      "format": "0"
+                    },
+                    "displayName": "Count",
+                    "actions": {
+                      "hover": {
+                        "type": "tooltip",
+                        "tooltipTemplate": "{{ @ }}"
+                      }
+                    }
+                  }
+                ]
               }
             }
           },
           "position": {
             "x": 0,
             "y": 14,
-            "width": 3,
+            "width": 6,
             "height": 6
           }
         },
@@ -283,7 +492,7 @@
             "name": "a2f59de9",
             "queries": [
               {
-                "name": "ab8a10a2a3654774aa71c428f923f252",
+                "name": "main_query",
                 "query": {
                   "datasetName": "f4b3e0f1",
                   "fields": [
@@ -292,12 +501,8 @@
                       "expression": "`borough`"
                     },
                     {
-                      "name": "column_adb55f5a2800",
+                      "name": "sum(TotalVisits)",
                       "expression": "SUM(`TotalVisits`)"
-                    },
-                    {
-                      "name": "borough",
-                      "expression": "`borough`"
                     }
                   ],
                   "disaggregated": false
@@ -305,24 +510,73 @@
               }
             ],
             "spec": {
-              "version": 0,
-              "viz_spec": {
-                "display_name": "most_visited_places_gold",
-                "viz_type": "CHART",
-                "serialized_options": "{\"isAggregationOn\":true,\"series\":{\"error_y\":{\"type\":\"data\",\"visible\":true},\"stacking\":null},\"coefficient\":1,\"yAxis\":[{\"title\":{\"text\":\"Total Visits\"},\"type\":\"-\"},{\"opposite\":true,\"type\":\"-\"}],\"columnConfigurationMap\":{\"series\":{\"column\":\"borough\",\"id\":\"column_adb55f5a2802\"},\"x\":{\"column\":\"borough\",\"id\":\"column_adb55f5a2799\"},\"y\":[{\"column\":\"TotalVisits\",\"id\":\"column_adb55f5a2800\",\"transform\":\"SUM\"}]},\"alignYAxesAtZero\":true,\"direction\":{\"type\":\"counterclockwise\"},\"swappedAxes\":true,\"percentFormat\":\"0[.]00%\",\"textFormat\":\"\",\"legend\":{\"traceorder\":\"normal\"},\"globalSeriesType\":\"column\",\"version\":2,\"sizemode\":\"diameter\",\"seriesOptions\":{\"column_adb55f5a2800\":{\"name\":\"TotalVisits\",\"yAxis\":0}},\"error_y\":{\"type\":\"data\",\"visible\":true},\"sortX\":true,\"showDataLabels\":false,\"missingValuesAsZero\":true,\"useAggregationsUi\":true,\"numberFormat\":\"0,0.[00000]\",\"dateTimeFormat\":\"DD/MM/YYYY HH:mm\",\"sortY\":true,\"valuesOptions\":{},\"xAxis\":{\"labels\":{\"enabled\":true},\"title\":{\"text\":\"Borough Name\"},\"type\":\"-\"}}",
-                "query_name": "ab8a10a2a3654774aa71c428f923f252"
+              "version": 3,
+              "frame": {
+                "title": "Locations Visited",
+                "showTitle": true,
+                "headerAlignment": "center",
+                "showDescription": true,
+                "description": "Where do Customers visit ?"
+              },
+              "annotations": [
+                {
+                  "type": "vertical-line",
+                  "encodings": {
+                    "x": {
+                      "dataValue": "35",
+                      "dataType": "INTEGER"
+                    }
+                  }
+                }
+              ],
+              "mark": {
+                "layout": "group"
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "sum(TotalVisits)",
+                  "axis": {
+                    "title": "Total Visits"
+                  },
+                  "displayName": "Total",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "borough",
+                  "axis": {
+                    "title": "Borough Name"
+                  },
+                  "displayName": "Borough",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "color": {
+                  "fieldName": "borough",
+                  "displayName": "Borough",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
               }
             }
           },
           "position": {
-            "x": 3,
+            "x": 6,
             "y": 14,
-            "width": 3,
+            "width": 6,
             "height": 6
           }
         }
       ],
-      "pageType": "PAGE_TYPE_CANVAS"
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
     }
   ],
   "uiSettings": {
@@ -330,7 +584,9 @@
       "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
     },
     "genieSpace": {
-      "isEnabled": false
-    }
+      "isEnabled": false,
+      "enablementMode": "ENABLEMENT_MODE_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
   }
 }
