@@ -2,13 +2,15 @@
   "datasets": [
     {
       "name": "285b47a9",
-      "displayName": "Untitled dataset",
+      "displayName": "Vendor Revenue Insights Gold Dataset",
       "queryLines": [
         "USE CATALOG `dab_nyctaxi_dev_uday`;\n",
         "USE SCHEMA `gold_nyctaxi`;\n",
         "\n",
         "select *from vendor_revenue_gold\n"
-      ]
+      ],
+      "catalog": "dab_nyctaxi_dev_uday",
+      "schema": "gold_nyctaxi"
     },
     {
       "name": "8ed33e83",
@@ -169,7 +171,7 @@
             "name": "b39c7708",
             "multilineTextboxSpec": {
               "lines": [
-                "# **New York City Taxi Services Dashboard Analysis**"
+                "# <span style=\"text-align:center;display:block;\">**New York City Taxi Services Dashboard Analysis**</span>"
               ]
             }
           },
@@ -576,6 +578,33 @@
         }
       ],
       "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "7bd42074",
+      "displayName": "Global Filters",
+      "layout": [
+        {
+          "widget": {
+            "name": "4635c9d0",
+            "spec": {
+              "version": 2,
+              "widgetType": "filter-single-select",
+              "encodings": {},
+              "frame": {
+                "showTitle": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 1,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
       "layoutVersion": "GRID_V1"
     }
   ],
